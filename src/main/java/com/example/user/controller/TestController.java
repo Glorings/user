@@ -2,6 +2,7 @@ package com.example.user.controller;
 
 //import com.example.user.client.ProductClientConfiguration;
 import com.example.user.service.ProductService;
+import com.example.user.service.ProductServiceSecond;
 import com.netflix.discovery.converters.Auto;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
@@ -32,11 +33,18 @@ public class TestController {
 
     @Autowired
     ProductService productService;
+    @Autowired
+    ProductServiceSecond productServiceSecond;
 
     @GetMapping("/feign")
-    //@HystrixCommand(fallbackMethod="error")
     public String test(){
        return  productService.getProduc(1L);
+    }
+
+    @GetMapping("/feign2")
+    @HystrixCommand(fallbackMethod="error",commandProperties = {@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds",value = "3000")})
+    public String test2(){
+        return  productServiceSecond.getProduc2(1L);
     }
 
     public String error(){
