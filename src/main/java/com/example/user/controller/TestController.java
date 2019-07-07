@@ -1,7 +1,10 @@
 package com.example.user.controller;
 
+//import com.example.user.client.ProductClientConfiguration;
 import com.example.user.service.ProductService;
 import com.netflix.discovery.converters.Auto;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -31,8 +34,14 @@ public class TestController {
     ProductService productService;
 
     @GetMapping("/feign")
+    //@HystrixCommand(fallbackMethod="error")
     public String test(){
        return  productService.getProduc(1L);
     }
+
+    public String error(){
+        return  "error";
+    }
+
 
 }
