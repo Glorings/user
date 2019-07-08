@@ -1,6 +1,7 @@
 package com.example.user.controller;
 
 //import com.example.user.client.ProductClientConfiguration;
+import com.example.user.config.CommonConfig;
 import com.example.user.service.ProductService;
 import com.example.user.service.ProductServiceSecond;
 import com.netflix.discovery.converters.Auto;
@@ -10,6 +11,7 @@ import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,6 +42,11 @@ public class TestController {
     ProductService productService;
     @Autowired
     ProductServiceSecond productServiceSecond;
+    @Value("${switch.test}")
+    String switchTest;
+
+    @Autowired
+    CommonConfig commonConfig;
 
     @GetMapping("/feign")
     public String test(){
@@ -83,6 +90,13 @@ public class TestController {
     public String testZuul5() throws Exception {
         //int result =  1/0;
         throw   new Exception("error");
+    }
+
+    @GetMapping("/testConfig")
+    public String testConfig() throws Exception {
+        logger.info("switchTest");
+        logger.info(commonConfig.getSwitchTest());
+        return switchTest;
     }
 
 }
