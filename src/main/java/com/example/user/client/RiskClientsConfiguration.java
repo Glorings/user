@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Scope;
 
 @Configuration
 public class RiskClientsConfiguration {
-    @Value("${host.feign.request.connectTimeoutMillis}")
+   /* @Value("${host.feign.request.connectTimeoutMillis}")
     int connectTimeoutMillis;
     @Value("${host.feign.request.readTimeoutMillis}")
     int readTimeoutMillis;
@@ -20,6 +20,6 @@ public class RiskClientsConfiguration {
         //读取与连接超时，有一个超时了都会降级
         Request.Options option = new Request.Options(connectTimeoutMillis,readTimeoutMillis);
         return option;
-    }
+    }*/
     
 }
