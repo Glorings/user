@@ -4,10 +4,7 @@ import com.example.user.client.RiskClientFallback;
 import com.example.user.client.RiskClientsConfiguration;
 import com.example.user.service.bo.UserBo;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 @FeignClient( value = "product",fallbackFactory = RiskClientFallback.class)
 public interface ProductService {
@@ -21,5 +18,8 @@ public interface ProductService {
 
     @PostMapping("/productParamPost")
     public  String productParamPost(@RequestBody UserBo user);
+
+    @PostMapping("/testToken")
+    public  String testToken(@RequestHeader("token") String header);
 
 }

@@ -41,6 +41,12 @@ public class RiskClientFallback implements FallbackFactory<ProductService> {
                 logger.info("TTTTTTTTTTT");
                 return "TTTT";
             }
+
+            @Override
+            public String testToken(String header) {
+                logger.info("TTTTTTTTTTT");
+                return "TTTT";
+            }
         };
     }
 

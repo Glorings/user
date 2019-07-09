@@ -26,6 +26,7 @@ import javax.annotation.PostConstruct;
 import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.zip.Inflater;
 
 /**
  * @author wujun
@@ -122,6 +123,12 @@ public class TestController {
     @RequestMapping(value = "/testUpload", consumes = "multipart/*")
     public String imageUpload(@RequestParam(value = "file",required = true) MultipartFile file) throws Exception{
         return fileUploadFeignService.fileUpload(file);
+    }
+
+    @PostMapping("/testToken")
+    public String feignParamPost(HttpServletRequest request){
+       logger.info(request.getHeader("token"));
+        return  productService.testToken(request.getHeader("token"));
     }
 
 }
