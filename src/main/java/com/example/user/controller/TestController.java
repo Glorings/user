@@ -2,6 +2,7 @@ package com.example.user.controller;
 
 //import com.example.user.client.ProductClientConfiguration;
 import com.example.user.config.CommonConfig;
+import com.example.user.service.FileUploadFeignService;
 import com.example.user.service.ProductService;
 import com.example.user.service.ProductServiceSecond;
 import com.example.user.service.bo.UserBo;
@@ -14,13 +15,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import javax.jws.soap.SOAPBinding;
@@ -42,6 +42,8 @@ public class TestController {
 
     @Autowired
     ProductService productService;
+    @Autowired
+    FileUploadFeignService fileUploadFeignService;
     @Autowired
     ProductServiceSecond productServiceSecond;
     @Value("${switch.test}")
@@ -115,6 +117,11 @@ public class TestController {
         userBo.setName("Glorings");
         userBo.setAge(19);
         return  productService.productParamPost(userBo);
+    }
+
+    @RequestMapping(value = "/testUpload", consumes = "multipart/*")
+    public String imageUpload(@RequestParam(value = "file",required = true) MultipartFile file) throws Exception{
+        return fileUploadFeignService.fileUpload(file);
     }
 
 }
