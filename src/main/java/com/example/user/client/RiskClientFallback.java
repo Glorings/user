@@ -1,6 +1,7 @@
 package com.example.user.client;
 
 import com.example.user.service.ProductService;
+import com.example.user.service.bo.UserBo;
 import feign.hystrix.FallbackFactory;
 import org.apache.logging.log4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,18 @@ public class RiskClientFallback implements FallbackFactory<ProductService> {
         return new ProductService() {
             @Override
             public String getProduc(Long userId) {
+                logger.info("TTTTTTTTTTT");
+                return "TTTT";
+            }
+
+            @Override
+            public String productParamGet(UserBo user) {
+                logger.info("TTTTTTTTTTT");
+                return "TTTT";
+            }
+
+            @Override
+            public String productParamPost(UserBo user) {
                 logger.info("TTTTTTTTTTT");
                 return "TTTT";
             }

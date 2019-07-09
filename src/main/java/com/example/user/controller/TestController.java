@@ -4,6 +4,7 @@ package com.example.user.controller;
 import com.example.user.config.CommonConfig;
 import com.example.user.service.ProductService;
 import com.example.user.service.ProductServiceSecond;
+import com.example.user.service.bo.UserBo;
 import com.netflix.discovery.converters.Auto;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
@@ -22,6 +23,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.PostConstruct;
+import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -97,6 +99,22 @@ public class TestController {
         logger.info("switchTest");
         logger.info(commonConfig.getSwitchTest());
         return switchTest;
+    }
+
+    @GetMapping("/feignParamGet")
+    public String feignParamGet(){
+        UserBo userBo = new UserBo();
+        userBo.setName("Glorings");
+        userBo.setAge(18);
+        return  productService.productParamGet(userBo);
+    }
+
+    @GetMapping("/feignParamPost")
+    public String feignParamPost(){
+        UserBo userBo = new UserBo();
+        userBo.setName("Glorings");
+        userBo.setAge(19);
+        return  productService.productParamPost(userBo);
     }
 
 }
